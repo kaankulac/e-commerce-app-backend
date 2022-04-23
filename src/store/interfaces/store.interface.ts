@@ -1,8 +1,8 @@
-import { Types } from 'mongoose'
+import { Types, Document } from 'mongoose'
 
-export interface IStore {
+export interface IStore extends Document {
     readonly storeName: string;
-    readonly owner: Types.ObjectId;
+    readonly owner: string;
     readonly rating: number;
     readonly joinCode: number;
 }

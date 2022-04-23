@@ -6,4 +6,10 @@ export interface IUser extends Document {
     readonly password: string;
     readonly name: string;
     readonly surname: string;
+    readonly grade: number;
+    readonly adress: string;
+    readonly paymentMethods: string[];
+    readonly comments: string[];
+    readonly shopcart: string[];
+    readonly orders: string[];
 }

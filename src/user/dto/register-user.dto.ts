@@ -1,4 +1,5 @@
-import {IsNotEmpty, IsString, IsEmail} from 'class-validator';
+import {IsNotEmpty, IsString, IsEmail, IsCreditCard} from 'class-validator';
+
 
 export class RegisterUserDto {
     @IsNotEmpty()
@@ -20,6 +21,20 @@ export class RegisterUserDto {
     @IsNotEmpty()
     @IsString()
     surname:string;
+
+    @IsNotEmpty()
+    grade: number;
+
+    @IsString()
+    adress: string;
+
+    paymentMethods:string[];
+
+    comments:string[];
+
+    shopcart:string[];
+
+    orders:string[];
 
     
 

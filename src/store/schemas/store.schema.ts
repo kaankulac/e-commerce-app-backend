@@ -9,11 +9,11 @@ export class Store {
     @Prop({required: true, unique:true})
     storeName: string;
 
-    @Prop({required: true, unique:true, type: Types.ObjectId, ref:"User" })
-    owner: User;
+    @Prop({required: true, unique:true})
+    owner: string;
 
     @Prop({required:true, unique:true})
-    joinCode: string;
+    joinCode: number;
 
     @Prop()
     rating: number;

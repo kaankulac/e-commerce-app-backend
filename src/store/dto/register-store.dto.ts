@@ -7,7 +7,7 @@ export class RegisterStoreDto {
     storeName: string;
 
     @IsNotEmpty()
-    owner: Types.ObjectId;
+    owner: string;
 
     rating: number;
 

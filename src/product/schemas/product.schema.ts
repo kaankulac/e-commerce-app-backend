@@ -33,7 +33,7 @@ export class Product {
     rating: number;
 
     @Prop([String])
-    comment: string[]
+    comments: string[]
 
 
 }

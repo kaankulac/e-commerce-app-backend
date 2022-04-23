@@ -6,13 +6,19 @@ import {AppService} from './app.service';
 import {UserModule} from './user/user.module'; 
 import { ProductModule } from './product/product.module';
 import { StoreModule } from './store/store.module';
+import { CommentModule } from './comment/comment.module';
+import { OrderModule } from './order/order.module';
+import { PaymentMethodModule } from './payment-method/payment-method.module';
 
 @Module({
   imports: [
     MongooseModule.forRoot(Config.mongoDbConnectionString),
     UserModule,
     ProductModule,
-    StoreModule
+    StoreModule,
+    CommentModule,
+    OrderModule,
+    PaymentMethodModule,
   ],
   controllers: [AppController],
   providers: [AppService],
