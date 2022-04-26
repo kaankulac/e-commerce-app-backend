@@ -1,4 +1,4 @@
-import {IsOptional, IsString, Length} from 'class-validator';
+import {IsOptional, IsString, Length, IsNotEmpty} from 'class-validator';
 
 export class UpdateStoreDto {
     @IsOptional()
@@ -13,4 +13,6 @@ export class UpdateStoreDto {
 
     @IsOptional()
     joinCode: number;
+
+ 
 }

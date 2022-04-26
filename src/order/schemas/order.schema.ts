@@ -2,24 +2,23 @@ import { Document, Types} from 'mongoose';
 import {Prop, Schema, SchemaFactory} from '@nestjs/mongoose';
 import { User } from '../../user/schemas/user.schema';
 import { Store } from '../../store/schemas/store.schema';
+import { ProductOrderDto } from '../dto/product.dto';
 
 export type OrderDocument = Order & Document;
 
 
-@Schema()
+@Schema({timestamps:true})
 export class Order {
 
     @Prop({required:true})
-    user: User;
+    userId: string;
 
     @Prop({required:true})
-    store: Store;
+    storeId: string;
 
     @Prop({required:true})
-    products: string[]
+    products: ProductOrderDto[]
 
-    @Prop({required:true})
-    createdAt: Date;
 }
 
 export const OrderSchema = SchemaFactory.createForClass(Order);

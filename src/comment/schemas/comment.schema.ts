@@ -3,25 +3,30 @@ import { Prop, Schema, SchemaFactory} from '@nestjs/mongoose';
 import { User } from '../../user/schemas/user.schema';
 import { Product } from '../../product/schemas/product.schema';
 
+
 export type CommentDocument = Comment & Document;
 
-@Schema()
+@Schema({timestamps:true})
 export class Comment {
 
     @Prop({required:true})
-    user: User;
+    user: string;
 
     @Prop({required:true})
-    product: Product;
+    product: string;
 
     @Prop({required:true})
     comment: string;
 
     @Prop({required:true})
     rate: number;
+     
+    @Prop({required:true})
+    createdAt:Date
 
     @Prop({required:true})
-    createdAt: Date;
+    updatedAt:Date
+
 
 }
 

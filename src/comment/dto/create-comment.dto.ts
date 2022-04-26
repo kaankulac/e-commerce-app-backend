@@ -4,10 +4,10 @@ import { Product } from '../../product/schemas/product.schema';
 
 export class CreateCommentDto {
     @IsNotEmpty()
-    user: User;
+    user: string;
 
     @IsNotEmpty()
-    product: Product;
+    product: string;
 
     @IsNotEmpty()
     @IsString()
@@ -17,7 +17,5 @@ export class CreateCommentDto {
     @IsNotEmpty()
     rate: number; // 1-10
 
-    @IsNotEmpty()
-    createdAt: Date;
 
 }

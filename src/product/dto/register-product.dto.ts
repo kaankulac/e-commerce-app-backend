@@ -13,7 +13,7 @@ export class RegisterProductDto {
 
     @IsNotEmpty()
     @IsInt()
-    stock: string;
+    stock: number;
 
     @IsNotEmpty()
     @IsString()
@@ -30,7 +30,7 @@ export class RegisterProductDto {
     sales: number;
 
     @IsInt()
-    rating: string; // 1-10
+    rating: number; // 1-10
 
     comments: string[];
 

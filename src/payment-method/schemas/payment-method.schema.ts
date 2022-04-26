@@ -4,7 +4,7 @@ import { User } from '../../user/schemas/user.schema';
 
 export type PaymentMethodDocument = PaymentMethod & Document;
 
-@Schema()
+@Schema({timestamps:true})
 export class PaymentMethod {
 
     @Prop({required:true})

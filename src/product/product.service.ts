@@ -1,8 +1,9 @@
 import { Model } from 'mongoose';
-import { Injectable, Logger } from '@nestjs/common';
+import { Injectable, Logger, NotFoundException } from '@nestjs/common';
 import {InjectModel} from '@nestjs/mongoose';
 import {Product, ProductDocument} from './schemas/product.schema';
 import {RegisterProductDto} from './dto/register-product.dto';
+import { UpdateProductDto } from './dto/update-product.dto';
 
 @Injectable()
 export class ProductService {
@@ -20,6 +21,21 @@ export class ProductService {
         return product.deleteOne();
     }
 
+    async getProductById(id:string){
+        var product = this.productModel.findById({_id:id});
+        return product;
+
+    }
+
+    async editProduct(editedProduct: UpdateProductDto, productId) {
+        const product = await this.productModel
+            .findOneAndUpdate({_id:productId},editedProduct, {new: true})
+
+        if(!product) {
+            throw new NotFoundException();
+        }
+        return product;
+    }
     
 
 }

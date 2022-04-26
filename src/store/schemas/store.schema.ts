@@ -4,7 +4,7 @@ import {User} from '../../user/schemas/user.schema';
 
 export type StoreDocument = Store & Document;
 
-@Schema()
+@Schema({timestamps:true})
 export class Store {
     @Prop({required: true, unique:true})
     storeName: string;

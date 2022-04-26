@@ -35,7 +35,7 @@ export class StoreController {
     @Patch('/edit/:id')
     async editStore(@Body() editedStore: UpdateStoreDto, @Param('id') id:string){
         this.service.editStore(editedStore, id)
-
+                      
     }
 
 }
