@@ -1,11 +1,11 @@
-import { RegisterProductDto } from 'src/product/dto/register-product.dto';
-import { RegisterUserDto } from 'src/user/dto/register-user.dto';
-import { RegisterStoreDto } from 'src/store/dto/register-store.dto';
+import { UserOrderDto } from "../dto/user-order";
+import { StoreOrderDto } from "../dto/store-order.dto";
+import { ProductOrderDto } from "../dto/product-order.dto";
 
 export interface IOrder {
-    readonly user: RegisterUserDto;
-    readonly store: RegisterStoreDto;
-    readonly product: RegisterProductDto;
+    readonly user: UserOrderDto;
+    readonly store: StoreOrderDto;
+    readonly product: ProductOrderDto;
     readonly amount: number;
     readonly isReturned: Boolean;
     readonly isCancelled: Boolean;

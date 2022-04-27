@@ -13,4 +13,9 @@ export class OrderController {
     async create(@Body() createOrderDto: CreateOrderDto){
         const order = this.service.create(createOrderDto);
     }
+
+    @Delete('delete/:id')
+    async delete(@Param('id') id:string) {
+        const order = this.service.delete(id);
+    }
 }
