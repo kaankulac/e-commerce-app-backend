@@ -1,17 +1,27 @@
 import { IsNotEmpty, IsString} from 'class-validator';
-import { Store } from '../../store/schemas/store.schema';
-import { User } from '../../user/schemas/user.schema';
-import { ProductOrderDto } from './product.dto';
+import { RegisterUserDto } from 'src/user/dto/register-user.dto';
+import { RegisterStoreDto } from 'src/store/dto/register-store.dto';
+import { RegisterProductDto } from 'src/product/dto/register-product.dto';
 
 export class CreateOrderDto {
 
     @IsNotEmpty()
-    userId: string;
+    user: RegisterUserDto;
 
     @IsNotEmpty()
-    storeId: string;
+    store: RegisterStoreDto;
 
     @IsNotEmpty()
-    products: ProductOrderDto[]
+    product: RegisterProductDto;
+
+    @IsNotEmpty()
+    amount: string;
+ 
+    @IsNotEmpty()
+    isReturned: Boolean;
+
+    @IsNotEmpty()
+    isCancelled: Boolean;
+
 
 }

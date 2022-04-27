@@ -1,16 +1,27 @@
 import { IsNotEmpty, IsOptional, IsString } from 'class-validator';
-import { ProductOrderDto } from './product.dto';
+import { RegisterUserDto } from 'src/user/dto/register-user.dto';
+import { RegisterStoreDto } from 'src/store/dto/register-store.dto';
+import { RegisterProductDto } from 'src/product/dto/register-product.dto';
 
 export class UpdateOrderDto {
 
     @IsOptional()
-    userId: string;
+    user: RegisterUserDto;
 
     @IsOptional()
-    storeId: string;
+    store: RegisterStoreDto;
 
     @IsOptional()
-    products: ProductOrderDto[];
+    product: RegisterProductDto;
+
+    @IsOptional()
+    amount: number;
+
+    @IsOptional()
+    isReturned: Boolean;
+
+    @IsOptional()
+    isCancelled: Boolean;
 
 
 }
