@@ -1,6 +1,7 @@
 import { Document, Types } from 'mongoose';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Product } from 'src/product/schemas/product.schema';
+import { ShopcartDto } from '../dto/shopcart.dto';
 
 export type UserDocument = User & Document;
 
@@ -35,7 +36,7 @@ export class User {
   comments: string[];
 
   @Prop([{product:{type:Types.ObjectId,require:true,ref:"Product"},quantity:{type:Number,required:true}}])
-  shopcart: string[]
+  shopcart: ShopcartDto[]
 
 
 }

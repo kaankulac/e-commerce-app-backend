@@ -6,6 +6,7 @@ import { LocalAuthGuard } from '../common/guards/local-auth.guard';
 import { PasswordHelper } from '../common/helpers/password.helper';
 import { IUser } from './interfaces/user.interface';
 import { Product } from 'src/product/schemas/product.schema';
+import { User } from './schemas/user.schema';
 
 @Controller()
 export class UserController {
@@ -32,15 +33,15 @@ export class UserController {
     @Get('user/profile')
     async getProfile(@Request() req) {
         const userId = req.user.userId;
-        const user: IUser = await this.service.findUserById(userId);
+        const user: User = await this.service.findUserById(userId);
         return user;
     }
 
     @UseGuards(JwtAuthGuard) //JwtAuthGuard ile yetkisiz istekleri engelliyoruz.
     @Get('user/:id')
     async getUserById(@Param('id') id: string) {
-        const user: IUser = await this.service.findUserById(id);
-        if (!user.id) throw new HttpException('BAD_REQUEST', HttpStatus.BAD_REQUEST);
+        const user: User = await this.service.findUserById(id);
+        if (!user) throw new HttpException('BAD_REQUEST', HttpStatus.BAD_REQUEST);
         return user;
     }
 

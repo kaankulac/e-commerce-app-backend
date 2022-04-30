@@ -35,9 +35,9 @@ export class UserService {
         }
     }
 
-    async validateUser(userName: string, pass: string): Promise<IUser | null> {
+    async validateUser(userName: string, pass: string): Promise<User | null> {
         try {
-            let findUser: IUser | null = null;
+            let findUser: User | null = null;
             const find = await this.userModel.find({ userName }).select('+password').exec();
             findUser = find.length > 0 ? find[0] : null;
 
@@ -60,7 +60,7 @@ export class UserService {
         }
     }
 
-    async findUserById(id: string): Promise<IUser> {
+    async findUserById(id: string): Promise<User> {
         try {
             const find = await this.userModel.findById(id).exec();
             return find;
@@ -72,11 +72,31 @@ export class UserService {
     async addItemToShopcart(id: string, productID: Product) {
         try {
             const user = await this.userModel
-                .findOneAndUpdate({_id:id},{$push: {shopcart:{_id:productID,quantity:1}}})
-        }
-        catch (err) {
+                .findById(id)
+            for(let i = 0; i<user.shopcart.length;i++){
+                if(user.shopcart[i].product == productID){
+                    user.shopcart[i].quantity+=1;
+                    await user.save()
+                    break;
+                }else {
 
+                    if(i==user.shopcart.length-1){
+                        const user = await this.userModel
+                            .findOneAndUpdate({_id:id},{$push: {shopcart:{product:productID,quantity:1}}})
+                    }
+
+                }
+            }
         }
+        catch(err) {
+            return err
+        }
+    }
+
+    async deleteItemToShopcart(id: string, productID: Product) {
+        const user = await this.userModel
+            .findById(id)
+        
     }
 
     async getUserWithShopcart(id: string) {
@@ -84,7 +104,13 @@ export class UserService {
             const user = await this.userModel
                 .findById(id)
                 .populate('shopcart.product')
-                .populate('shopcart.product')
+                .populate({
+                    path:"shopcart.product",
+                    populate:{
+                        path:"store",
+                        model:"Store"
+                    }
+                })
             return user;
         }
         catch(err) {
