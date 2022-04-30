@@ -1,6 +1,6 @@
 import { Document, Types } from 'mongoose';
 import {Prop, Schema, SchemaFactory} from '@nestjs/mongoose';
-import {User} from '../../user/schemas/user.schema';
+import { OwnerDto } from '../dto/owner.dto';
 
 export type StoreDocument = Store & Document;
 
@@ -10,7 +10,7 @@ export class Store {
     storeName: string;
 
     @Prop({required: true, unique:true})
-    owner: string;
+    owner: OwnerDto;
 
     @Prop({required:true, unique:true})
     joinCode: number;

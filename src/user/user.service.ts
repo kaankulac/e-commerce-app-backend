@@ -7,6 +7,7 @@ import { IJwtPayload } from './interfaces/jwt-payload.interface';
 import { User, UserDocument } from './schemas/user.schema';
 import { RegisterUserDto } from './dto/register-user.dto';
 import { PasswordHelper } from '../common/helpers/password.helper';
+import { Product } from 'src/product/schemas/product.schema';
 
 @Injectable()
 export class UserService {
@@ -65,6 +66,29 @@ export class UserService {
             return find;
         } catch (err) {
             throw new HttpException('Server Error', HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    async addItemToShopcart(id: string, productID: Product) {
+        try {
+            const user = await this.userModel
+                .findOneAndUpdate({_id:id},{$push: {shopcart:{_id:productID,quantity:1}}})
+        }
+        catch (err) {
+
+        }
+    }
+
+    async getUserWithShopcart(id: string) {
+        try {
+            const user = await this.userModel
+                .findById(id)
+                .populate('shopcart.product')
+                .populate('shopcart.product')
+            return user;
+        }
+        catch(err) {
+            return err
         }
     }
 

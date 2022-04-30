@@ -2,6 +2,7 @@ import { IsNotEmpty, IsString} from 'class-validator';
 import { ProductOrderDto } from './product-order.dto';
 import { StoreOrderDto } from './store-order.dto';
 import { UserOrderDto } from './user-order';
+import { User } from 'src/user/schemas/user.schema';
 
 export class CreateOrderDto {
 

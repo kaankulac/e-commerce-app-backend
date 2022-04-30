@@ -1,5 +1,5 @@
 import { IsOptional, IsString, IsNumber, Length } from 'class-validator';
-
+import { Store } from 'src/store/schemas/store.schema';
 
 export class UpdateProductDto {
 
@@ -22,7 +22,7 @@ export class UpdateProductDto {
     image: string;
 
     @IsOptional()
-    store: string;
+    store: Store;
 
     @IsOptional()
     sales: number;

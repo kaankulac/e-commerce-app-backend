@@ -1,5 +1,6 @@
 import { IsNotEmpty, IsString, Length, IsInt} from 'class-validator';
-import {Types} from 'mongoose';
+import { OwnerDto } from './owner.dto';
+
 
 export class RegisterStoreDto {
     @IsNotEmpty()
@@ -7,7 +8,7 @@ export class RegisterStoreDto {
     storeName: string;
 
     @IsNotEmpty()
-    owner: string;
+    owner: OwnerDto;
 
     rating: number;
 

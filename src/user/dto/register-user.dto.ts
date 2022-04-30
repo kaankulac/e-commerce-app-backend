@@ -1,4 +1,5 @@
 import {IsNotEmpty, IsString, IsEmail, IsCreditCard} from 'class-validator';
+import { Product } from 'src/product/schemas/product.schema';
 
 
 export class RegisterUserDto {
@@ -33,8 +34,6 @@ export class RegisterUserDto {
     comments:string[];
 
     shopcart:string[];
-
-    orders:string[];
 
     
 

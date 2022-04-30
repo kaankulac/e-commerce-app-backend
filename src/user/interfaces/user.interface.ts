@@ -1,4 +1,5 @@
 import { Document } from 'mongoose';
+import { Product } from 'src/product/schemas/product.schema';
 
 export interface IUser extends Document {
     readonly userName: string;
@@ -11,5 +12,5 @@ export interface IUser extends Document {
     readonly paymentMethods: string[];
     readonly comments: string[];
     readonly shopcart: string[];
-    readonly orders: string[];
+
 }

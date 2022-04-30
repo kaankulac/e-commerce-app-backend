@@ -1,4 +1,5 @@
 import { Types } from 'mongoose';
+import { Store } from 'src/store/schemas/store.schema';
 
 export interface IProduct {
     readonly productName: string;
@@ -6,7 +7,7 @@ export interface IProduct {
     readonly stock: number;
     readonly category: string;
     readonly image: string;
-    readonly storeId: Types.ObjectId;
+    readonly store: Store;
     readonly sales: number;
     readonly rating: number;
     readonly comments: string[];

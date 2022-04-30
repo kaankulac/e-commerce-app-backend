@@ -1,4 +1,4 @@
-import { Controller, Post, HttpStatus, Get, Patch, Body, Request, Param, HttpException } from '@nestjs/common';
+import { Controller, Post, HttpStatus, Get, Patch, Body, Request, Param, Delete, HttpException } from '@nestjs/common';
 import { ProductService } from './product.service';
 import { RegisterProductDto } from './dto/register-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
@@ -16,18 +16,32 @@ export class ProductController {
 
     }
 
-    @Post('delete/:id')
+    @Delete('delete/:id')
     async delete(@Param('id') id: string) {
 
-        await this.service.delete(id);
+        var product = await this.service.delete(id);
+        return product;
 
     }
 
     @Patch('edit/:id')
     async editProduct(@Body() editedProduct: UpdateProductDto, @Param('id') id:string ) {
 
-        this.service.editProduct(editedProduct, id);
+        var product = this.service.editProduct(editedProduct, id);
+        return product;
+        
+    }
 
+    @Get("get/:id")
+    async getProduct(@Param('id') id:string){
+        const product = this.service.getProduct(id);
+        return product;
+    }
+
+    @Get("get/deneme/:id")
+    async deneme(@Param('id') id:string){
+        const product = this.service.getProductWithStore(id);
+        return product;
     }
 
     

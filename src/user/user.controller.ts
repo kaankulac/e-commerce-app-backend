@@ -5,6 +5,7 @@ import { JwtAuthGuard } from '../common/guards/jwt-auth.guard';
 import { LocalAuthGuard } from '../common/guards/local-auth.guard';
 import { PasswordHelper } from '../common/helpers/password.helper';
 import { IUser } from './interfaces/user.interface';
+import { Product } from 'src/product/schemas/product.schema';
 
 @Controller()
 export class UserController {
@@ -42,4 +43,22 @@ export class UserController {
         if (!user.id) throw new HttpException('BAD_REQUEST', HttpStatus.BAD_REQUEST);
         return user;
     }
+
+    @Post('user/add/:id')
+    async addItemToShopcart(@Param('id') id:string, @Body("productID") productID: Product) {
+
+        const user = this.service.addItemToShopcart(id, productID);
+        return user;
+
+    }
+
+    @Get('user/get/:id') 
+    async getUserWithShopcart(@Param('id') id:string) {
+
+        const user = this.service.getUserWithShopcart(id);
+        return user;
+
+
+    }
+    
 }

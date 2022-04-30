@@ -1,5 +1,6 @@
 import { IsNotEmpty, IsString, Length, IsInt } from "class-validator";
 import {Types} from 'mongoose';
+import { Store } from '../../store/schemas/store.schema';
 
 export class RegisterProductDto {
     @IsNotEmpty()
@@ -24,7 +25,7 @@ export class RegisterProductDto {
     image: string;
 
     @IsNotEmpty()
-    store: Types.ObjectId;
+    store: Store;
 
     @IsInt()
     sales: number;
