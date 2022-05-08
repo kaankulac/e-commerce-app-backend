@@ -8,6 +8,7 @@ import { User, UserDocument } from './schemas/user.schema';
 import { RegisterUserDto } from './dto/register-user.dto';
 import { PasswordHelper } from '../common/helpers/password.helper';
 import { Product } from 'src/product/schemas/product.schema';
+import { isBuffer } from 'util';
 
 @Injectable()
 export class UserService {
@@ -73,30 +74,59 @@ export class UserService {
         try {
             const user = await this.userModel
                 .findById(id)
-            for(let i = 0; i<user.shopcart.length;i++){
-                if(user.shopcart[i].product == productID){
-                    user.shopcart[i].quantity+=1;
+            for (let i = 0; i < user.shopcart.length; i++) {
+                if (user.shopcart[i].product == productID) {
+                    user.shopcart[i].quantity += 1;
                     await user.save()
+                    return user;
                     break;
-                }else {
+                } else {
 
-                    if(i==user.shopcart.length-1){
+                    if (i == user.shopcart.length - 1) {
                         const user = await this.userModel
-                            .findOneAndUpdate({_id:id},{$push: {shopcart:{product:productID,quantity:1}}})
+                            .findOneAndUpdate({ _id: id }, { $push: { shopcart: { product: productID, quantity: 1 } } })
+                        return user;
                     }
 
                 }
             }
         }
-        catch(err) {
+        catch (err) {
             return err
         }
     }
 
-    async deleteItemToShopcart(id: string, productID: Product) {
+    async increaseItemToShopcart(id: string, productID: Product) {
         const user = await this.userModel
             .findById(id)
-        
+        for (let i = 0; i < user.shopcart.length; i++) {
+            if (user.shopcart[i].product == productID) {
+                if (user.shopcart[i].quantity == 1) {
+                    user.shopcart.splice(i, 1);
+                    await user.save();
+                    return user;
+                } else {
+                    user.shopcart[i].quantity -= 1;
+                    await user.save();
+                    return user;
+                }
+
+            }
+        }
+
+    }
+
+    async deleteItemToShopcartItem(id: string, productID: Product) {
+        const user = await this.userModel
+            .findById(id)
+        for (let i = 0; i < user.shopcart.length; i++) {
+            if (user.shopcart[i].product == productID) {
+                user.shopcart.splice(i, 1);
+                user.save();
+                break;
+            }
+        }
+
     }
 
     async getUserWithShopcart(id: string) {
@@ -105,17 +135,39 @@ export class UserService {
                 .findById(id)
                 .populate('shopcart.product')
                 .populate({
-                    path:"shopcart.product",
-                    populate:{
-                        path:"store",
-                        model:"Store"
+                    path: "shopcart.product",
+                    populate: {
+                        path: "store",
+                        model: "Store"
                     }
                 })
             return user;
         }
-        catch(err) {
+        catch (err) {
             return err
         }
+    }
+
+    async deleteUser(id: string) {
+        try {
+            const user = await this.userModel
+                .findByIdAndDelete(id)
+            throw new HttpException('Deleted',HttpStatus.OK);
+        }catch(err){
+            throw new HttpException(err.message,HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+
+            
+
+
+
+
+
+
+
+
+
     }
 
 

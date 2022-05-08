@@ -1,4 +1,4 @@
-import { Body, Controller, HttpStatus, Post, Get, UseGuards, Request, Param, HttpException } from '@nestjs/common';
+import { Body, Controller, HttpStatus, Post, Delete, Get, UseGuards, Request, Param, HttpException } from '@nestjs/common';
 import { UserService } from './user.service';
 import { RegisterUserDto } from './dto/register-user.dto';
 import { JwtAuthGuard } from '../common/guards/jwt-auth.guard';
@@ -45,12 +45,24 @@ export class UserController {
         return user;
     }
 
-    @Post('user/add/:id')
+    @Post('user/shopcart/add/:id')
     async addItemToShopcart(@Param('id') id:string, @Body("productID") productID: Product) {
 
         const user = this.service.addItemToShopcart(id, productID);
         return user;
 
+    }
+
+    @Post('user/shopcart/increase/:id')
+    async increaseItemToShopcart(@Param('id') id:string, @Body('productID') productID: Product) {
+        const user = this.service.increaseItemToShopcart(id, productID);
+        return user;
+    }
+
+    @Delete('user/shopcart/delete/:id')
+    async deleteItemToShopcart(@Param('id') id:string, @Body('productID') productID: Product) {
+        const res = this.service.deleteItemToShopcartItem(id, productID);
+        return res;
     }
 
     @Get('user/get/:id') 
@@ -60,6 +72,12 @@ export class UserController {
         return user;
 
 
+    }
+
+    @Delete('user/delete/:id')
+    async deleteUser(@Param('id') id:string) {
+        const res = this.service.deleteUser(id);
+        return res;
     }
     
 }
