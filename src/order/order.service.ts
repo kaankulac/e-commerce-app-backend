@@ -78,4 +78,25 @@ export class OrderService {
             return err;
         }
     }
+
+    async getStoreOrders(id:string){
+        try {
+            const orders = await this.orderModel
+                .find({store:id})
+                .populate('user')
+                .populate('store')
+                .populate('product')
+                .populate({
+                    path:"product",
+                    populate: {
+                        path:"store",
+                        model:"Store"
+                    }
+                })
+            return orders;
+        }   
+        catch(err){
+            return err;
+        }
+    }
 }
