@@ -26,5 +26,17 @@ export class OrderController {
         return orders;
     }
 
+    @Patch('return/:id')
+    async returnOrder(@Param('id') id: string){
+        const order = this.service.return(id);
+        return order;
+    }
+
+    @Patch('cancel/:id')
+    async cancelOrder(@Param('id') id:string){
+        const order = this.service.cancel(id);
+        return order;
+    }
+
     
 }

@@ -1,7 +1,6 @@
 import { Document, Types} from 'mongoose';
 import {Prop, Schema, SchemaFactory} from '@nestjs/mongoose';
 import { User } from '../../user/schemas/user.schema';
-import { Store } from 'src/store/schemas/store.schema';
 import { Product } from 'src/product/schemas/product.schema';
 
 export type OrderDocument = Order & Document;
