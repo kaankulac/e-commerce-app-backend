@@ -1,19 +1,16 @@
 import { IsNotEmpty, IsString} from 'class-validator';
-import { ProductOrderDto } from './product-order.dto';
-import { StoreOrderDto } from './store-order.dto';
-import { UserOrderDto } from './user-order';
+
 import { User } from 'src/user/schemas/user.schema';
+import { Store } from 'src/store/schemas/store.schema';
+import { Product } from 'src/product/schemas/product.schema';
 
 export class CreateOrderDto {
 
     @IsNotEmpty()
-    user: UserOrderDto;
-
+    user: User;
+    
     @IsNotEmpty()
-    store: StoreOrderDto;
-
-    @IsNotEmpty()
-    product: ProductOrderDto;
+    product: Product;
 
     @IsNotEmpty()
     amount: string;

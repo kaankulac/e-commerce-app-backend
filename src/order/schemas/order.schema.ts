@@ -1,9 +1,8 @@
 import { Document, Types} from 'mongoose';
 import {Prop, Schema, SchemaFactory} from '@nestjs/mongoose';
 import { User } from '../../user/schemas/user.schema';
-import { UserOrderDto } from '../dto/user-order';
-import { StoreOrderDto } from '../dto/store-order.dto';
-import { ProductOrderDto } from '../dto/product-order.dto';
+import { Store } from 'src/store/schemas/store.schema';
+import { Product } from 'src/product/schemas/product.schema';
 
 export type OrderDocument = Order & Document;
 
@@ -11,14 +10,11 @@ export type OrderDocument = Order & Document;
 @Schema({timestamps:true})
 export class Order {
 
-    @Prop({required:true,unique:false})
-    user: UserOrderDto;
+    @Prop({required:true, type:Types.ObjectId, ref:'User'})
+    user: User;
 
-    @Prop({required:true})
-    store: StoreOrderDto;
-
-    @Prop({required:true})
-    product: ProductOrderDto;
+    @Prop({required:true, type:Types.ObjectId, ref:'Product'})
+    product: Product;
 
     @Prop({required:true})
     amount: number;
@@ -28,6 +24,7 @@ export class Order {
 
     @Prop({required:true})
     isCancelled: Boolean;
+
 
 }
 

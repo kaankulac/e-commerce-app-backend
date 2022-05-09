@@ -1,11 +1,10 @@
-import { UserOrderDto } from "../dto/user-order";
-import { StoreOrderDto } from "../dto/store-order.dto";
-import { ProductOrderDto } from "../dto/product-order.dto";
+import { User } from "src/user/schemas/user.schema";
+import { Store } from "src/store/schemas/store.schema";
+import { Product } from "src/product/schemas/product.schema";
 
 export interface IOrder {
-    readonly user: UserOrderDto;
-    readonly store: StoreOrderDto;
-    readonly product: ProductOrderDto;
+    readonly user: User;
+    readonly product: Product;
     readonly amount: number;
     readonly isReturned: Boolean;
     readonly isCancelled: Boolean;

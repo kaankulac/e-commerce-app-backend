@@ -160,8 +160,9 @@ export class UserService {
 
     async editUser(editedUser: updateUserDto, userId: string){
         try {
+            
             const user = await this.userModel
-                .findByIdAndUpdate(userId,updateUserDto)
+                .findByIdAndUpdate({_id:userId},editedUser,{new:true})
             return user;
         }catch(err){
             return err;

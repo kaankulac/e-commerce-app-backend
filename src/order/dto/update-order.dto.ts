@@ -1,18 +1,15 @@
 import { IsNotEmpty, IsOptional, IsString } from 'class-validator';
-import { ProductOrderDto } from './product-order.dto';
-import { StoreOrderDto } from './store-order.dto';
-import { UserOrderDto } from './user-order';
+import { User } from 'src/user/schemas/user.schema';
+import { Store } from 'src/store/schemas/store.schema';
+import { Product } from 'src/product/schemas/product.schema';
 
 export class UpdateOrderDto {
 
     @IsOptional()
-    user: UserOrderDto;
+    user: User;
 
     @IsOptional()
-    store: StoreOrderDto;
-
-    @IsOptional()
-    product: ProductOrderDto;
+    product: Product;
 
     @IsOptional()
     amount: number;
