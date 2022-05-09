@@ -38,5 +38,17 @@ export class OrderController {
         return order;
     }
 
+    @Get('store/get/:id')
+    async getStoreOrders(@Param('id') id:string){
+        const orders = this.service.getStoreOrders(id);
+        return orders;
+    }
+
+    @Patch('edit/:id')
+    async editOrder(@Param('id') id: string, @Body() editedOrder: UpdateOrderDto){
+        const order = this.service.edit(id, editedOrder);
+        return order;
+    }
+
     
 }

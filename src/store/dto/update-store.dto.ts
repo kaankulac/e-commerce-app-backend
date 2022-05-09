@@ -1,5 +1,5 @@
 import {IsOptional, IsString, Length, IsNotEmpty} from 'class-validator';
-import { OwnerDto } from './owner.dto';
+import { User } from 'src/user/schemas/user.schema';
 
 export class UpdateStoreDto {
     @IsOptional()
@@ -7,7 +7,7 @@ export class UpdateStoreDto {
     storName: string;
 
     @IsOptional()
-    owner: OwnerDto;
+    owner: User;
     
     @IsOptional()
     rating: number;

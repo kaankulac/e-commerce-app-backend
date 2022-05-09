@@ -2,6 +2,7 @@ import { Document, Types} from 'mongoose';
 import {Prop, Schema, SchemaFactory} from '@nestjs/mongoose';
 import { User } from '../../user/schemas/user.schema';
 import { Product } from 'src/product/schemas/product.schema';
+import { Store } from 'src/store/schemas/store.schema';
 
 export type OrderDocument = Order & Document;
 
@@ -14,6 +15,9 @@ export class Order {
 
     @Prop({required:true, type:Types.ObjectId, ref:'Product'})
     product: Product;
+
+    @Prop({required:true, type:Types.ObjectId, ref:'Store'})
+    store: Store;
 
     @Prop({required:true})
     amount: number;

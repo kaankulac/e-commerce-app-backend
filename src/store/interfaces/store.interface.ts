@@ -1,9 +1,9 @@
 import { Types, Document } from 'mongoose'
-import { OwnerDto } from '../dto/owner.dto';
+import { User } from 'src/user/schemas/user.schema';
 
 export interface IStore extends Document {
     readonly storeName: string;
-    readonly owner: OwnerDto;
+    readonly owner: User;
     readonly rating: number;
     readonly joinCode: number;
 }

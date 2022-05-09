@@ -64,6 +64,7 @@ export class OrderService {
                 .find({user:id})
                 .populate('user')
                 .populate('product')
+                .populate('store')
                 .populate({
                     path:"product",
                     populate: {

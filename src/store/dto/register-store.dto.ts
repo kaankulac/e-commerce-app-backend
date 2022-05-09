@@ -1,6 +1,5 @@
 import { IsNotEmpty, IsString, Length, IsInt} from 'class-validator';
-import { OwnerDto } from './owner.dto';
-
+import { User } from 'src/user/schemas/user.schema';
 
 export class RegisterStoreDto {
     @IsNotEmpty()
@@ -8,7 +7,7 @@ export class RegisterStoreDto {
     storeName: string;
 
     @IsNotEmpty()
-    owner: OwnerDto;
+    owner: User;
 
     rating: number;
 
