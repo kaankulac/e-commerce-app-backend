@@ -8,7 +8,7 @@ import { User, UserDocument } from './schemas/user.schema';
 import { RegisterUserDto } from './dto/register-user.dto';
 import { PasswordHelper } from '../common/helpers/password.helper';
 import { Product } from 'src/product/schemas/product.schema';
-import { isBuffer } from 'util';
+import { updateUserDto } from './dto/update-user.dto';
 
 @Injectable()
 export class UserService {
@@ -156,19 +156,17 @@ export class UserService {
         }catch(err){
             throw new HttpException(err.message,HttpStatus.INTERNAL_SERVER_ERROR);
         }
-
-
-            
-
-
-
-
-
-
-
-
-
     }
 
+    async editUser(editedUser: updateUserDto, userId: string){
+        try {
+            const user = await this.userModel
+                .findByIdAndUpdate(userId,updateUserDto)
+            return user;
+        }catch(err){
+            return err;
+        }
+
+    }
 
 }

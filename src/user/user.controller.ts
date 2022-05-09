@@ -1,4 +1,4 @@
-import { Body, Controller, HttpStatus, Post, Delete, Get, UseGuards, Request, Param, HttpException } from '@nestjs/common';
+import { Body, Controller, HttpStatus, Post, Delete, Patch, Get, UseGuards, Request, Param, HttpException } from '@nestjs/common';
 import { UserService } from './user.service';
 import { RegisterUserDto } from './dto/register-user.dto';
 import { JwtAuthGuard } from '../common/guards/jwt-auth.guard';
@@ -7,6 +7,7 @@ import { PasswordHelper } from '../common/helpers/password.helper';
 import { IUser } from './interfaces/user.interface';
 import { Product } from 'src/product/schemas/product.schema';
 import { User } from './schemas/user.schema';
+import { updateUserDto } from './dto/update-user.dto';
 
 @Controller()
 export class UserController {
@@ -79,5 +80,12 @@ export class UserController {
         const res = this.service.deleteUser(id);
         return res;
     }
+
+    @Patch('user/edit/:id')
+    async editUser(@Param('id') id:string, @Body() editedUser: updateUserDto){
+        const res = this.service.editUser(editedUser, id);
+        return res;
+    }
+
     
 }
