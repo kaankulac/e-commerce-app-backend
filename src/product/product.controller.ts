@@ -33,13 +33,7 @@ export class ProductController {
     }
 
     @Get("get/:id")
-    async getProduct(@Param('id') id:string){
-        const product = this.service.getProduct(id);
-        return product;
-    }
-
-    @Get("get/deneme/:id")
-    async deneme(@Param('id') id:string){
+    async getProductWithStore(@Param('id') id:string){
         const product = this.service.getProductWithStore(id);
         return product;
     }

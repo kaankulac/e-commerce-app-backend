@@ -39,6 +39,8 @@ export class ProductService {
         return product;
     }
 
+
+    // never used
     async getProduct(id){
         const product = await this.productModel
             .findById(id)
