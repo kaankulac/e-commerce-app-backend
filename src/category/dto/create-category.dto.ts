@@ -9,5 +9,11 @@ export class CreateCategoryDto{
     @IsNotEmpty()
     trademark: string;
 
+    @IsNotEmpty()
+    model: string;
+
+    @IsNotEmpty()
+    releaseYear: number;
+
 
 }
