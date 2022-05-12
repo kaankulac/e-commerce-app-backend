@@ -34,20 +34,4 @@ export class CategoryController {
 
     }
 
-    @Get('get/:trademark')
-    async getCategoryByTrademark(@Param('trademark') trademark: string){
-
-        const categories = this.service.getByTrademark(trademark);
-        return categories;
-
-    }
-
-    @Get('get/:model')
-    async getCategoryByModel(@Param('model') model: string){
-
-        const categories = this.service.getByModel(model);
-        return categories;
-
-    }
-
 }

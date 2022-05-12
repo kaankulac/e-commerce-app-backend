@@ -25,24 +25,6 @@ export class CategoryService {
         }
     }
 
-    async getByType(type: string) {
-        const categories = await this.categoryModel
-            .find({ type: type })
-        return categories;
-    }
-
-    async getByTrademark(trademark: string) {
-        const categories = await this.categoryModel
-            .find({ trademark: trademark })
-        return categories;
-    }
-
-    async getByModel(model: string) {
-        const categories = await this.categoryModel
-            .find({ model: model })
-        return categories;
-    }
-
     async get(model: string, type: string, trademark: string, releaseYear: number) {
             const categories = await this.categoryModel
                 .find({model: model ? model : { $ne: 0} , trademark: trademark ? trademark : { $ne: 0}, type: type ? type : {$ne: 0} , releaseYear: releaseYear ? releaseYear : {$ne : 0}})
