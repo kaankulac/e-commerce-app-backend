@@ -20,27 +20,36 @@ export class CategoryService {
                 .findByIdAndDelete(id)
             return category;
         }
-        catch(err){
+        catch (err) {
             return err;
         }
     }
 
-    async getByType(type: string){
+    async getByType(type: string) {
         const categories = await this.categoryModel
-            .find({type:type})
+            .find({ type: type })
         return categories;
     }
 
-    async getByTrademark(trademark: string){
+    async getByTrademark(trademark: string) {
         const categories = await this.categoryModel
-            .find({trademark:trademark})
+            .find({ trademark: trademark })
         return categories;
     }
 
-    async getByModel(model: string){
+    async getByModel(model: string) {
         const categories = await this.categoryModel
-            .find({model:model})
+            .find({ model: model })
         return categories;
+    }
+
+    async get(model: string, type: string, trademark: string, releaseYear: number) {
+            const categories = await this.categoryModel
+                .find({model: model ? model : { $ne: 0} , trademark: trademark ? trademark : { $ne: 0}, type: type ? type : {$ne: 0} , releaseYear: releaseYear ? releaseYear : {$ne : 0}})
+                // .find({ model: model, type: type, trademark: trademark, releaseYear: releaseYear });
+            return categories;
+
+
     }
 
 
