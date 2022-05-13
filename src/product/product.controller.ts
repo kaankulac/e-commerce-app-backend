@@ -1,12 +1,14 @@
-import { Controller, Post, HttpStatus, Get, Patch, Body, Request, Param, Delete, HttpException } from '@nestjs/common';
+import { Controller, Post, HttpStatus, Get, Patch, Body, Request, Param, Query, Delete, HttpException } from '@nestjs/common';
 import { ProductService } from './product.service';
+import { CategoryService } from 'src/category/category.service';
 import { RegisterProductDto } from './dto/register-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
+import { ParamsDto } from './dto/params.dto';
 
 @Controller('product')
 export class ProductController {
     constructor(
-        private readonly service: ProductService
+        private readonly service: ProductService,
     ) { }
 
     @Post('create')
@@ -38,6 +40,14 @@ export class ProductController {
         return product;
     }
 
+
+    @Get("get")
+    async getProductWithFilter(@Query() paramsDto: ParamsDto ){
+        
+        const products = this.service.getProductWithFilter(paramsDto);
+        return products;
+        
+    }
     
 
 

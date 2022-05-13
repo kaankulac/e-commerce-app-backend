@@ -1,5 +1,6 @@
 import { IsOptional, IsString, IsNumber, Length } from 'class-validator';
 import { Store } from 'src/store/schemas/store.schema';
+import { Category } from "src/category/schemas/category.schema";
 
 export class UpdateProductDto {
 
@@ -16,7 +17,7 @@ export class UpdateProductDto {
     stock: number;
 
     @IsOptional()
-    category: string;
+    category: Category;
 
     @IsOptional()
     image: string;

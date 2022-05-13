@@ -27,12 +27,12 @@ export class CategoryService {
 
     async get(model: string, type: string, trademark: string, releaseYear: number) {
             const categories = await this.categoryModel
-                .find({model: model ? model : { $ne: 0} , trademark: trademark ? trademark : { $ne: 0}, type: type ? type : {$ne: 0} , releaseYear: releaseYear ? releaseYear : {$ne : 0}})
-                // .find({ model: model, type: type, trademark: trademark, releaseYear: releaseYear });
+                .find({
+                    model: model ? model : { $ne: 0},
+                    trademark: trademark ? trademark : { $ne: 0},
+                    type: type ? type : {$ne: 0},
+                    releaseYear: releaseYear ? releaseYear : {$ne : 0}
+                })
             return categories;
-
-
     }
-
-
 }

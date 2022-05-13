@@ -1,7 +1,7 @@
 import { IsNotEmpty, IsString, Length, IsInt } from "class-validator";
 import {Types} from 'mongoose';
 import { Store } from '../../store/schemas/store.schema';
-
+import { Category } from "src/category/schemas/category.schema";
 export class RegisterProductDto {
     @IsNotEmpty()
     @IsString()
@@ -18,7 +18,7 @@ export class RegisterProductDto {
 
     @IsNotEmpty()
     @IsString()
-    category: string;
+    category: Category;
 
     @IsNotEmpty()
     @IsString()

@@ -1,6 +1,7 @@
 import { Document, Types } from 'mongoose';
 import {Prop, Schema, SchemaFactory} from '@nestjs/mongoose';
 import {Store} from '../../store/schemas/store.schema';
+import { Category } from 'src/category/schemas/category.schema';
 
 
 export type ProductDocument = Product & Document;
@@ -17,8 +18,8 @@ export class Product {
     @Prop({required:true})
     stock: number;
 
-    @Prop({required:true})
-    category: string;
+    @Prop({required:true, type: Types.ObjectId, ref:'Category'})
+    category: Category;
 
     @Prop({required:true})
     image:string;
