@@ -6,7 +6,6 @@ import { RegisterProductDto } from './dto/register-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { Store, StoreDocument } from '../store/schemas/store.schema';
 import { Category, CategoryDocument } from '../category/schemas/category.schema';
-import { ParamsDto } from './dto/params.dto';
 
 
 @Injectable()
@@ -61,27 +60,7 @@ export class ProductService {
     }
 
 
-    async getProductWithFilter(paramsDto: ParamsDto) {
-
-       
-            const products = await this.productModel
-                .find({ category: { $ne: null}})
-                .populate({
-                    path:"category",
-                    match: {
-                         type: paramsDto.type ? paramsDto.type : { $ne: 0},
-                         trademark: paramsDto.trademark ? paramsDto.trademark : { $ne: 0},
-                         model: paramsDto.model ? paramsDto.model : { $ne: 0 },
-                         releaseYear: paramsDto.releaseYear ? paramsDto.releaseYear : { $ne: 0}
-                },
-                
-                })
-
-            return products;
-
-
-
-    }
+  
 
 
 }

@@ -7,13 +7,6 @@ export class CreateCategoryDto{
     type: string;
 
     @IsNotEmpty()
-    trademark: string;
-
-    @IsNotEmpty()
-    model: string;
-
-    @IsNotEmpty()
-    releaseYear: number;
-
-
+    subType: string;
+    
 }

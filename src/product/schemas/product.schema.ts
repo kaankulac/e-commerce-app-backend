@@ -22,6 +22,9 @@ export class Product {
     category: Category;
 
     @Prop({required:true})
+    trademark: string;
+
+    @Prop({required:true})
     image:string;
 
     @Prop({required:true, type: Types.ObjectId, ref:'Store'})

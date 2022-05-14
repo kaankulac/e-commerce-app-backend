@@ -3,7 +3,6 @@ import { ProductService } from './product.service';
 import { CategoryService } from 'src/category/category.service';
 import { RegisterProductDto } from './dto/register-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
-import { ParamsDto } from './dto/params.dto';
 
 @Controller('product')
 export class ProductController {
@@ -41,13 +40,6 @@ export class ProductController {
     }
 
 
-    @Get("get")
-    async getProductWithFilter(@Query() paramsDto: ParamsDto ){
-        
-        const products = this.service.getProductWithFilter(paramsDto);
-        return products;
-        
-    }
     
 
 

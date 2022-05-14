@@ -12,14 +12,7 @@ export class Category {
     type: string;
 
     @Prop({required:true})
-    trademark: string;
-
-    @Prop({required:true})
-    model: string;
-
-    @Prop({required:true})
-    releaseYear: number;
-
+    subType: string;
 }
 
 export const CategorySchema = SchemaFactory.createForClass(Category);

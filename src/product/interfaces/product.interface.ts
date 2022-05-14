@@ -7,6 +7,7 @@ export interface IProduct {
     readonly description: string;
     readonly stock: number;
     readonly category: Category;
+    readonly trademark: string;
     readonly image: string;
     readonly store: Store;
     readonly sales: number;

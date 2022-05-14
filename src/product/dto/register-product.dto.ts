@@ -21,6 +21,9 @@ export class RegisterProductDto {
     category: Category;
 
     @IsNotEmpty()
+    trademark: string;
+
+    @IsNotEmpty()
     @IsString()
     image: string;
 

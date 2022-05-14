@@ -20,6 +20,9 @@ export class UpdateProductDto {
     category: Category;
 
     @IsOptional()
+    trademark: string;
+
+    @IsOptional()
     image: string;
 
     @IsOptional()
