@@ -3,6 +3,7 @@ import { ProductService } from './product.service';
 import { CategoryService } from 'src/category/category.service';
 import { RegisterProductDto } from './dto/register-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
+import { ProductFilterDto } from './dto/product.filter.dto';
 
 @Controller('product')
 export class ProductController {
@@ -34,9 +35,17 @@ export class ProductController {
     }
 
     @Get("get/:id")
-    async getProductWithStore(@Param('id') id:string){
+    async getProductWithStore(@Param('id') id: string){
         const product = this.service.getProductWithStore(id);
         return product;
+    }
+
+    @Get('get')
+    async getProductWithFilter(@Query() productFilterDto: ProductFilterDto){
+
+        const products = this.service.getProductWithFilter(productFilterDto);
+        return products;
+
     }
 
 

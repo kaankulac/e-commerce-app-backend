@@ -2,6 +2,8 @@ import { Document, Types } from 'mongoose';
 import {Prop, Schema, SchemaFactory} from '@nestjs/mongoose';
 import {Store} from '../../store/schemas/store.schema';
 import { Category } from 'src/category/schemas/category.schema';
+import { ProductInfoDto } from '../dto/product-info.dto';
+import { KeyObject } from 'crypto';
 
 
 export type ProductDocument = Product & Document;
@@ -21,9 +23,9 @@ export class Product {
     @Prop({required:true, type: Types.ObjectId, ref:'Category'})
     category: Category;
 
-    @Prop({required:true})
-    trademark: string;
-
+    @Prop({required:true, type:Object})
+    productInfo: ProductInfoDto
+    
     @Prop({required:true})
     image:string;
 
