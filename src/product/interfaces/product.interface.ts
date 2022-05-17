@@ -8,16 +8,7 @@ export interface IProduct {
     readonly description: string;
     readonly stock: number;
     readonly category: Category;
-    readonly productInfo: {
-        trademark:{type: string, required:true},
-        model: {type: string, required:false},
-        size: { type: string, required:false},
-        screenSize: {type: string, required:false},
-        ram: {type: string, required:false},
-        storage: {type: string, required:false},
-        releaseYear: {type:string, required:false}
-
-    };
+    readonly productInfo: ProductInfoDto;
     readonly image: string;
     readonly store: Store;
     readonly sales: number;

@@ -23,16 +23,7 @@ export class RegisterProductDto {
     category: Category;
 
     @IsNotEmpty()
-    productInfo: {
-        trademark: { type: string, required: true },
-        model: { type: string, required: false },
-        size: { type: string, required: false },
-        screenSize: { type: string, required: false },
-        ram: { type: string, required: false },
-        storage: { type: string, required: false },
-        releaseYear: {type:string, required:false}
-
-    }
+    productInfo: ProductInfoDto
 
     @IsNotEmpty()
     @IsString()
