@@ -1,11 +1,13 @@
 import { IsOptional, IsString, Length} from 'class-validator';
+import { Product } from 'src/product/schemas/product.schema';
+import { User } from 'src/user/schemas/user.schema';
 
 export class UpdateCommentDto {
     @IsOptional()
-    user: string;
+    user: User;
 
     @IsOptional()
-    product: string;
+    product: Product;
 
     @IsOptional()
     @IsString()

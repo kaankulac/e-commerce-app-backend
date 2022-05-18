@@ -141,6 +141,21 @@ export class UserService {
                         model: "Store"
                     }
                 })
+                .populate('comments')
+                .populate({
+                    path:'comments',
+                    populate: {
+                        path:'product',
+                        model: 'Product'
+                    }
+                })
+                .populate({                          // not working will try
+                    path:'comments.product',
+                    populate: {
+                        path: 'store',
+                        model : 'Store'
+                    }
+                })
             return user;
         }
         catch (err) {

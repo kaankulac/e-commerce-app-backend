@@ -4,13 +4,23 @@ import { Model } from 'mongoose';
 import { Comment, CommentDocument } from './schemas/comment.schema';
 import { CreateCommentDto } from './dto/create-comment.dto';
 import { UpdateCommentDto } from './dto/update-comment.dto';
+import { User, UserDocument } from 'src/user/schemas/user.schema';
+import { Product, ProductDocument } from 'src/product/schemas/product.schema';
 
 @Injectable()
 export class CommentService {
-    constructor(@InjectModel(Comment.name) private readonly commentModel: Model<CommentDocument>) {}
+    constructor(
+        @InjectModel(Comment.name) private readonly commentModel: Model<CommentDocument>,
+        @InjectModel(Product.name) private readonly productModel: Model<ProductDocument>,
+        @InjectModel(User.name) private readonly userModel: Model<UserDocument>
+    
+    
+    ) {}
 
     async create(createCommentDto: CreateCommentDto) : Promise<Comment> {
         const createdComment = new this.commentModel(createCommentDto);
+        const user = await this.userModel
+            .findByIdAndUpdate(createCommentDto.user,{ $push: {comments: createdComment._id}})
         return createdComment.save();
     }
 
@@ -28,5 +38,13 @@ export class CommentService {
         }
 
         return comment;
+    }
+
+    async getComment(id: string){
+        const comment = await this.commentModel
+            .findById(id)
+            .populate('product')
+            .populate('user')
+        return comment
     }
 }

@@ -27,4 +27,11 @@ export class CommentController {
     async edit(@Body() updateCommentDto: UpdateCommentDto, @Param('id') id: string) {
         await this.service.edit(updateCommentDto, id);
     }
+
+    @Get('/get/:id')
+    async get(@Param('id') id:string){
+        const comment = await this.service.getComment(id);
+        return comment;
+    }
+
 }
