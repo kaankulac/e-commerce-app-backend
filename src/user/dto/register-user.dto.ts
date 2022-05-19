@@ -1,6 +1,6 @@
 import {IsNotEmpty, IsString, IsEmail, IsCreditCard} from 'class-validator';
 import { Product } from 'src/product/schemas/product.schema';
-
+import { PaymentMethod } from 'src/payment-method/schemas/payment-method.schema';
 
 export class RegisterUserDto {
     @IsNotEmpty()
@@ -29,7 +29,7 @@ export class RegisterUserDto {
     @IsString()
     adress: string;
 
-    paymentMethods:string[];
+    paymentMethods:PaymentMethod[];
 
     comments:string[];
 

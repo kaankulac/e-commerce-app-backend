@@ -3,6 +3,7 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Product } from 'src/product/schemas/product.schema';
 import { ShopcartDto } from '../dto/shopcart.dto';
 import { Comment } from 'src/comment/schemas/comment.schema';
+import { PaymentMethod } from 'src/payment-method/schemas/payment-method.schema';
 
 export type UserDocument = User & Document;
 
@@ -30,8 +31,8 @@ export class User {
   @Prop()
   adress: string;
 
-  @Prop([String])
-  paymentMethods: string[];
+  @Prop({type: [Types.ObjectId], ref:PaymentMethod.name})
+  paymentMethods: PaymentMethod[];
 
   @Prop({type:[Types.ObjectId],ref:Comment.name})
   comments: Comment[];

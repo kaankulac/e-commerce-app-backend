@@ -1,5 +1,5 @@
 import { IsEmail, IsOptional } from 'class-validator';
-
+import { PaymentMethod } from 'src/payment-method/schemas/payment-method.schema';
 
 export class updateUserDto {
     @IsOptional()
@@ -25,7 +25,7 @@ export class updateUserDto {
     adress: string;
 
     @IsOptional()
-    paymentMethods: string[];
+    paymentMethods: PaymentMethod[];
 
     @IsOptional()
     comments: string[];

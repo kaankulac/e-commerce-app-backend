@@ -21,6 +21,9 @@ export class CommentService {
         const createdComment = new this.commentModel(createCommentDto);
         const user = await this.userModel
             .findByIdAndUpdate(createCommentDto.user,{ $push: {comments: createdComment._id}})
+        const product = await this.productModel
+            .findByIdAndUpdate(createCommentDto.product, { $push: { comments: createdComment._id}})
+
         return createdComment.save();
     }
 
