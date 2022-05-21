@@ -94,6 +94,24 @@ export class ProductService {
 
     }
 
+    async getProductByStoreId(id: string){
+        const products = await this.productModel
+            .find({store:id})
+            .populate('store')
+
+        return products;
+
+    }
+
+    async getProductByCategory(id: string){
+        const products = await this.productModel    
+            .find({category:id})
+            .populate('store')
+
+        return products;
+
+    }
+
 
 
 

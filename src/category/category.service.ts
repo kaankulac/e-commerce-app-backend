@@ -3,6 +3,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Category, CategoryDocument } from './schemas/category.schema';
 import { CreateCategoryDto } from './dto/create-category.dto';
 import { Model } from 'mongoose';
+import { UpdateCategoryDto } from './dto/update-category.dto';
 
 
 @Injectable()
@@ -25,14 +26,17 @@ export class CategoryService {
         }
     }
 
-    async get(model: string, type: string, trademark: string, releaseYear: number) {
-            const categories = await this.categoryModel
-                .find({
-                    model: model ? model : { $ne: 0},
-                    trademark: trademark ? trademark : { $ne: 0},
-                    type: type ? type : {$ne: 0},
-                    releaseYear: releaseYear ? releaseYear : {$ne : 0}
-                })
-            return categories;
+    async edit(id: string, updatedCategory:UpdateCategoryDto){
+        try {
+
+            const category = await this.categoryModel
+                .findByIdAndUpdate(id,updatedCategory)
+            return category;
+
+        }catch(err){
+
+            return err;
+
+        }
     }
 }

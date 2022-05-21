@@ -48,6 +48,24 @@ export class ProductController {
 
     }
 
+    @Get('get/store/:id')
+    async getProductByStoreId(@Param('id') id:string){
+
+        const products = this.service.getProductByStoreId(id);
+        return products;
+        
+    }
+
+    @Get('get/category/:id')
+    async getProductByCategory(@Param('id') id:string){
+        
+        const products = this.service.getProductByCategory(id)
+        return products;
+
+    }
+
+
+
 
     
 
