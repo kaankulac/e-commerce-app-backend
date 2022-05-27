@@ -56,7 +56,7 @@ export class UserService {
                 from: process.env.EMAIL,
                 to: registerUserDto.email,
                 subject: "Email verification link",
-                html: '<p>Click <a href="http://localhost:4000/api/user/verify/' + user._id + '">here</a> to verify your email</p>'
+                html: '<p>Click <a href="ip/api/user/verify/' + user._id + '">here</a> to verify your email</p>' //ip kısmına api ip si gelecek
 
             }, function (err, info) {
                 if (err) throw err;
