@@ -96,13 +96,6 @@ export class UserController {
         return res;
     }
 
-    @UseGuards(AdminGuard)
-    @Post('user/deneme')
-    async deneme(@Body() user: updateUserDto){
-        const res = this.service.deneme(user)
-        return res;
-    }
-
 
     @Get('users')
     async getAllUsers(){

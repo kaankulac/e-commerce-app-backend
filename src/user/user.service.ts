@@ -40,9 +40,6 @@ export class UserService {
     }
 
     async register(registerUserDto: RegisterUserDto): Promise<User> {
-        const username = "denemeonaylama@gmail.com";
-        const password = "234234234k";
-        const hostname = "gmail";
         try {
 
             const create = new this.userModel(registerUserDto);
@@ -56,7 +53,7 @@ export class UserService {
             })
             const user = await create.save();
             let verifyMessage = await transporter.sendMail({
-                from: username,
+                from: process.env.EMAIL,
                 to: registerUserDto.email,
                 subject: "Email verification link",
                 html: '<p>Click <a href="http://localhost:4000/api/user/verify/' + user._id + '">here</a> to verify your email</p>'
@@ -228,9 +225,6 @@ export class UserService {
 
     }
 
-    async deneme(user: updateUserDto) {
-        return user;
-    }
 
     async getAllUsers() {
 
