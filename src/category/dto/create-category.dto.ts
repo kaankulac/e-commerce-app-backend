@@ -6,7 +6,5 @@ export class CreateCategoryDto{
     @IsNotEmpty()
     type: string;
 
-    @IsNotEmpty()
-    subType: string;
     
 }

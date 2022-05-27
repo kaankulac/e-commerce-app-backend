@@ -11,8 +11,6 @@ export class Category {
     @Prop({required:true})
     type: string;
 
-    @Prop({required:true})
-    subType: string;
 }
 
 export const CategorySchema = SchemaFactory.createForClass(Category);

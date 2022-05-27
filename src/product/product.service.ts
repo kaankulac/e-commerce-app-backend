@@ -104,12 +104,23 @@ export class ProductService {
     }
 
     async getProductByCategory(id: string){
+        const category = await this.categoryModel
+            .find({type:id})
+            
         const products = await this.productModel    
             .find({category:id})
             .populate('store')
 
         return products;
 
+    }
+
+    async get(){
+        const products = await this.productModel
+            .find()
+            .populate('store')
+            .select('_id productName description stock image sales rating category')
+        return products;
     }
 
 

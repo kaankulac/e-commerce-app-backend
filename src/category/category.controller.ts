@@ -28,4 +28,10 @@ export class CategoryController {
         return category;
 
     }
+
+    @Get('get')
+    async get(){
+        const categories = this.service.get();
+        return categories;
+    }
 }

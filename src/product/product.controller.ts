@@ -40,13 +40,13 @@ export class ProductController {
         return product;
     }
 
-    @Get('get')
-    async getProductWithFilter(@Query() productFilterDto: ProductFilterDto){
+    // @Get('get')
+    // async getProductWithFilter(@Query() productFilterDto: ProductFilterDto){
 
-        const products = this.service.getProductWithFilter(productFilterDto);
-        return products;
+    //     const products = this.service.getProductWithFilter(productFilterDto);
+    //     return products;
 
-    }
+    // }
 
     @Get('get/store/:id')
     async getProductByStoreId(@Param('id') id:string){
@@ -56,13 +56,20 @@ export class ProductController {
         
     }
 
-    @Get('get/category/:id')
+    @Get('get/category/:name')
     async getProductByCategory(@Param('id') id:string){
         
         const products = this.service.getProductByCategory(id)
         return products;
 
     }
+
+    @Get('get')
+    async get(){
+        const products = this.service.get();
+        return products;
+    }
+
 
 
 

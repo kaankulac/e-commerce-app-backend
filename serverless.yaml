@@ -1,0 +1,23 @@
+service: e-commerce-backend
+
+useDotEnv: true
+
+plugins:
+  - serverless-offline
+  - serverless-dotenv-plugin
+provider:
+ name: aws
+ runtime: nodejs16.x
+ environment:
+  MONGODB_URI: ${env:MONGODB_URI, 'dev'}
+  JWT_SECRET: ${env:JWT_SECRET, 'dev'}
+  JWT_EXPIRATION_TIME: ${env:JWT_EXPIRATION_TIME, 'dev'}
+
+functions:
+  user:
+    handler: dist/serverless.handler
+    events:
+      - httpApi: 'POST /api/user/register'
+      - httpApi: 'GET /api/users'
+
+

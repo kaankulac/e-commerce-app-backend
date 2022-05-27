@@ -26,7 +26,10 @@ export class RegisterUserDto {
     @IsNotEmpty()
     grade: number;
 
-    @IsString()
+    @IsNotEmpty()
+    emailVerified: Boolean;
+
+
     adress: string;
 
     paymentMethods:PaymentMethod[];

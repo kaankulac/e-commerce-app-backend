@@ -28,6 +28,9 @@ export class User {
   @Prop({required: true})
   grade: number;
 
+  @Prop({required: true})
+  emailVerified: Boolean;
+
   @Prop()
   adress: string;
 

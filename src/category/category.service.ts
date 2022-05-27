@@ -39,4 +39,12 @@ export class CategoryService {
 
         }
     }
+
+    async get(){
+
+        const categories = await this.categoryModel
+            .find()
+            .select('type -_id')
+        return categories;
+    }
 }

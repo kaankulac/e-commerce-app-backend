@@ -1,4 +1,4 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable, UnauthorizedException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { JwtService } from '@nestjs/jwt';
@@ -9,6 +9,9 @@ import { RegisterUserDto } from './dto/register-user.dto';
 import { PasswordHelper } from '../common/helpers/password.helper';
 import { Product } from 'src/product/schemas/product.schema';
 import { updateUserDto } from './dto/update-user.dto';
+import nodemailer from 'nodemailer';
+import * as dotenv from "dotenv";
+dotenv.config({ path: __dirname+'/.env' });
 
 @Injectable()
 export class UserService {
@@ -19,34 +22,61 @@ export class UserService {
     ) { }
 
     async login(user: IUser) {
+
         try {
-            const payload: IJwtPayload = { userName: user.userName, userId: user.id };
-            return { access_token: this.jwtService.sign(payload) };
+            const user3 = await this.userModel
+                .find({ userName: user.userName })
+
+            if (true) {
+                const payload: IJwtPayload = { userName: user.userName, userId: user.id };
+                return this.jwtService.sign(payload);
+            } else {
+                throw new HttpException('Email not verified', HttpStatus.BAD_REQUEST)
+            }
+
         } catch (err) {
             throw new HttpException('Server Error', HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     async register(registerUserDto: RegisterUserDto): Promise<User> {
+        const username = "denemeonaylama@gmail.com";
+        const password = "234234234k";
+        const hostname = "gmail";
         try {
+
             const create = new this.userModel(registerUserDto);
-            return create.save();
+            let transporter = nodemailer.createTransport({
+                host: "smtp.gmail.com",
+                port: 587,
+                auth: {
+                    user: process.env.EMAIL,
+                    pass: process.env.PASSWORD
+                }
+            })
+            const user = await create.save();
+            let verifyMessage = await transporter.sendMail({
+                from: username,
+                to: registerUserDto.email,
+                subject: "Email verification link",
+                html: '<p>Click <a href="http://localhost:4000/api/user/verify/' + user._id + '">here</a> to verify your email</p>'
+
+            }, function (err, info) {
+                if (err) throw err;
+                return user
+            })
+            return user
         } catch (err) {
             throw new HttpException('Server Error', HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
-    async validateUser(userName: string, pass: string): Promise<User | null> {
+    async validateUser(userName: string, pass: string): Promise<any> {
         try {
-            let findUser: User | null = null;
-            const find = await this.userModel.find({ userName }).select('+password').exec();
-            findUser = find.length > 0 ? find[0] : null;
-
-            if (findUser != null) {
-                const check = await this.passwordHelper.verifyPasswordHash(pass, findUser.password);
-                return check ? findUser : null;
-            }
-            return findUser;
+            const user = await this.userModel
+                .find({ userName: userName })
+            if (!user) throw new UnauthorizedException()
+            return user
         } catch (err) {
             throw new HttpException('Server Error', HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -71,18 +101,30 @@ export class UserService {
     }
 
     async addItemToShopcart(id: string, productID: Product) {
-        try {
+        try { 
+            console.log(id)
+            console.log(productID)
             const user = await this.userModel
-                .findById(id)
+                .findById({_id:id})
+            console.log(user);
+            
+            if (user.shopcart.length == 0) {
+                console.log("--")
+                const user = await this.userModel
+                    .findOneAndUpdate({ _id: id }, { $push: { shopcart: { product: productID, quantity: 1 } } })
+                return user;
+            }
             for (let i = 0; i < user.shopcart.length; i++) {
                 if (user.shopcart[i].product == productID) {
+                    console.log("++")
                     user.shopcart[i].quantity += 1;
                     await user.save()
                     return user;
-                    break;
                 } else {
 
                     if (i == user.shopcart.length - 1) {
+                        console.log("++")
+
                         const user = await this.userModel
                             .findOneAndUpdate({ _id: id }, { $push: { shopcart: { product: productID, quantity: 1 } } })
                         return user;
@@ -96,7 +138,7 @@ export class UserService {
         }
     }
 
-    async increaseItemToShopcart(id: string, productID: Product) {
+    async decreaseItemToShopcart(id: string, productID: Product) {
         const user = await this.userModel
             .findById(id)
         for (let i = 0; i < user.shopcart.length; i++) {
@@ -129,6 +171,7 @@ export class UserService {
 
     }
 
+
     async getUserWithShopcart(id: string) {
         try {
             const user = await this.userModel
@@ -143,17 +186,17 @@ export class UserService {
                 })
                 .populate('comments')
                 .populate({
-                    path:'comments',
+                    path: 'comments',
                     populate: {
-                        path:'product',
+                        path: 'product',
                         model: 'Product'
                     }
                 })
-                .populate({                          // not working will try
-                    path:'comments.product',
+                .populate({                         
+                    path: 'comments.product',
                     populate: {
                         path: 'store',
-                        model : 'Store'
+                        model: 'Store'
                     }
                 })
             return user;
@@ -167,20 +210,54 @@ export class UserService {
         try {
             const user = await this.userModel
                 .findByIdAndDelete(id)
-            throw new HttpException('Deleted',HttpStatus.OK);
-        }catch(err){
-            throw new HttpException(err.message,HttpStatus.INTERNAL_SERVER_ERROR);
+            throw new HttpException('Deleted', HttpStatus.OK);
+        } catch (err) {
+            throw new HttpException(err.message, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
-    async editUser(editedUser: updateUserDto, userId: string){
+    async editUser(editedUser: updateUserDto, userId: string) {
         try {
-            
+
             const user = await this.userModel
-                .findByIdAndUpdate({_id:userId},editedUser,{new:true})
+                .findByIdAndUpdate({ _id: userId }, editedUser, { new: true })
             return user;
-        }catch(err){
+        } catch (err) {
             return err;
+        }
+
+    }
+
+    async deneme(user: updateUserDto) {
+        return user;
+    }
+
+    async getAllUsers() {
+
+        const users = await this.userModel
+            .find()
+
+        return users;
+    }
+
+    async getUserByUsername(username) {
+        const user = await this.userModel
+            .findById("628ff015cbec7b7d76236cd8")
+            .select("-shopcart._id")
+            .populate('shopcart.product')
+        
+        
+            
+        return user.shopcart;
+    }
+
+    async verifyEmail(id: string) {
+        try {
+            const user = await this.userModel
+                .findByIdAndUpdate(id, { emailVerified: true });
+            return "Email verified !";
+        } catch (err) {
+            return err
         }
 
     }

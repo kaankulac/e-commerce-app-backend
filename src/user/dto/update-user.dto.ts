@@ -25,6 +25,9 @@ export class updateUserDto {
     adress: string;
 
     @IsOptional()
+    emailVerified: Boolean;
+
+    @IsOptional()
     paymentMethods: PaymentMethod[];
 
     @IsOptional()
